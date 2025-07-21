@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple SPA with Interactive Menu</title>
+    <script src="https://code.angularjs.org/1.8.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.2/angular-route.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            color: black;
+            background-color: antiquewhite;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: black;
+            transition: background-color 0.3s ease;
+            padding: 10px 20px;
+            z-index: 1000;
+        }
+
+        .navbar.scrolled {
+            background-color: whitesmoke;
+        }
+
+        .navbar a {
+            color: red;
+            margin-right: 15px;
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: white;
+            color: black;
+            border-radius: 4px;
+        }
+        .banner {
+            width: auto; 
+            height: auto;
+            justify-content: center;
+            padding-left: 50px;
+        }
+
+        .content {
+            margin-top: 70px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+
+    <!-- Navigation Menu -->
+    <div class="navbar" id="navbar">
+        <a href="#!home">Home</a>
+        <a href="#!about">About</a>
+        <a href="#!contact">Contact</a>
+    </div>
+
+    <div class="content" ng-view></div>
+
+    <script >
+        var app = angular.module("myApp", ["ngRoute"]);
+        app.config(function($routeProvider) {
+            $routeProvider
+.when("/home", {
+    template: `
+        <h2> Welcome</h2>
+        <p><strong>One Piece</strong> is a legendary Japanese manga and anime series created by <strong>Eiichiro Oda</strong>.</p>
+        <p>It follows the adventures of <strong>Monkey D. Luffy</strong>, a young pirate, as he explores the Grand Line in search of the ultimate treasure: <em>One Piece</em>.</p>
+
+        <div style="background-color:cadetblue ; border-left: 6px solid black; padding: 10px; margin: 20px 0; color: black;">
+            <strong>🔥 One Piece is part of the iconic "Big 3" of anime!</strong>
+            <p>Alongside <em>Naruto</em> and <em>Bleach</em>.</p>
+        </div>
+
+        <ul>
+            <li>📅 Started in 1997 and still ongoing!</li>
+            <li>🎥 Over 1000 anime episodes and 100+ manga volumes.</li>
+        </ul>
+
+        
+    `
+})
+
+.when("/about", {
+    template: `
+        <h2>About One Piece</h2>
+        <p><strong>One Piece</strong> is a Japanese manga and anime series created by Eiichiro Oda. It follows Monkey D. Luffy, a young pirate with a dream to become the Pirate King by finding the legendary treasure called "One Piece."</p>
+        <p>The series features epic adventures, unique characters, and themes of friendship, freedom, and dreams. It began in 1997 and has become one of the best-selling manga of all time.</p>
+    `
+})
+
+
+            .when("/contact", {
+                template: "<h2>Contact Us</h2><p>Email: contact@example.com</p>"
+            })
+            .otherwise({
+                redirectTo: "/home"
+            });
+        });
+    </script>
+    <img src="img.jpeg" alt="Image" class="banner" >
+
+    <script>
+        window.addEventListener("scroll", function () {
+            var navbar = document.getElementById("navbar");
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+    </script>
+
+</body>
+</html>
